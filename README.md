@@ -6,6 +6,10 @@ Sistema de monitoreo y análisis de uso de infraestructura tecnológica de **Sav
 
 ---
 
+[![Ver Dashboard](https://img.shields.io/badge/Ver-Dashboard-0D9488?style=for-the-badge&logo=github)](https://savia-lab.github.io/savia-traffic/dashboard/)
+
+---
+
 ## Propósito
 
 El sistema busca proporcionar una visión centralizada del estado y utilización de la infraestructura de SavIA-Lab.
