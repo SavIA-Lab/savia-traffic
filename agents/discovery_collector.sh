@@ -6,8 +6,8 @@ INTERVAL=180
 AGENT_VERSION="0.1.1"
 
 REPO="$HOME/savia-traffic"
-DATA_DIR="$REPO/data/workstation2"
-CSV_FILE="$DATA_DIR/telemetry.csv"
+DATA_DIR="$REPO/dashboard/data"
+CSV_FILE="$DATA_DIR/telemetry_WS2.csv"
 
 INTERFACE="eno1"
 

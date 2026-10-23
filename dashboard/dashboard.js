@@ -1,4 +1,3 @@
-const CSV_URL = "./data/telemetry.csv";
 let allRows = [];
 let charts = {};
 
@@ -106,21 +105,56 @@ async function loadCSV() {
   const errorBox = document.getElementById("error-box");
   errorBox.hidden = true;
   try {
-    const response = await fetch(`${CSV_URL}?v=${Date.now()}`, { cache: "no-store" });
-    if (!response.ok) throw new Error(`No se pudo leer ${CSV_URL} (HTTP ${response.status}).`);
-    const text = await response.text();
-    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true, dynamicTyping: false });
-    if (parsed.errors.length) console.warn("Avisos al leer CSV:", parsed.errors.slice(0, 5));
-    allRows = parsed.data.filter(r => r.timestamp).map(r => ({ ...r, _date: new Date(r.timestamp) }))
-      .filter(r => !Number.isNaN(r._date.getTime())).sort((a, b) => a._date - b._date);
-    if (!allRows.length) throw new Error("El CSV se cargó, pero no contiene registros con timestamps válidos.");
+    // 1. Cargar el archivo manifest.json con la lista de nombres de CSV
+    const manifestRes = await fetch(`./data/manifest.json?v=${Date.now()}`, { cache: "no-store" });
+    if (!manifestRes.ok) throw new Error(`No se pudo leer el archivo manifest.json (HTTP ${manifestRes.status}).`);
+    const fileNames = await manifestRes.json();
+
+    if (!Array.isArray(fileNames) || !fileNames.length) {
+      throw new Error("El archivo manifest.json está vacío o no tiene un formato de lista válido.");
+    }
+
+    // 2. Cargar todos los archivos CSV listados en paralelo
+    const promises = fileNames.map(async (fileName) => {
+      const fileUrl = `./data/${fileName}`;
+      try {
+        const response = await fetch(`${fileUrl}?v=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) {
+          console.warn(`No se pudo leer ${fileUrl} (HTTP ${response.status}), se omitirá.`);
+          return [];
+        }
+        const text = await response.text();
+        const parsed = Papa.parse(text, { header: true, skipEmptyLines: true, dynamicTyping: false });
+        if (parsed.errors.length) console.warn(`Avisos al leer ${fileName}:`, parsed.errors.slice(0, 5));
+        return parsed.data.filter(r => r.timestamp);
+      } catch (err) {
+        console.warn(`Error procesando ${fileName}:`, err);
+        return [];
+      }
+    });
+
+    const results = await Promise.all(promises);
+    let combinedData = [];
+    results.forEach(rows => {
+      combinedData = combinedData.concat(rows);
+    });
+
+    // 3. Procesar, validar y ordenar cronológicamente todos los registros combinados
+    allRows = combinedData
+      .map(r => ({ ...r, _date: new Date(r.timestamp) }))
+      .filter(r => !Number.isNaN(r._date.getTime()))
+      .sort((a, b) => a._date - b._date);
+
+    if (!allRows.length) throw new Error("Los archivos se cargaron, pero no contienen registros con timestamps válidos.");
+    
     render();
   } catch (error) {
     errorBox.hidden = false;
-    errorBox.textContent = `${error.message} Comprueba que el CSV esté en docs/dashboard/data/telemetry.csv y que la página se abra desde un servidor web o GitHub Pages. Abrir index.html directamente como archivo puede bloquear la lectura por seguridad del navegador.`;
+    errorBox.textContent = `${error.message} Comprueba que manifest.json y los archivos CSV estén en la carpeta ./data/ y que abras la página desde un servidor web.`;
     console.error(error);
   }
 }
+
 document.getElementById("refresh-button").addEventListener("click", loadCSV);
 document.getElementById("range-select").addEventListener("change", render);
 loadCSV();
