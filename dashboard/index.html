@@ -3,115 +3,524 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Panel de telemetría de infraestructura de SavIA-Lab">
+
+  <meta
+    name="description"
+    content="Panel de telemetría de infraestructura de SavIA-Lab"
+  >
+
   <title>Savia Traffic · Dashboard</title>
+
   <link rel="stylesheet" href="./styles.css">
+
+  <!-- Gráficas -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Adaptador para utilizar fechas y horas en el eje temporal -->
+  <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
+
+  <!-- Lectura de archivos CSV -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <!-- Lógica del dashboard -->
   <script defer src="./dashboard.js"></script>
 </head>
+
 <body>
   <div class="app-shell">
+
+    <!-- =====================================================
+         BARRA LATERAL
+    ====================================================== -->
+
     <aside class="sidebar">
+
       <div class="brand-mark">S</div>
-      <div class="brand-copy"><strong>SavIA-Lab</strong><span>INFRASTRUCTURE</span></div>
+
+      <div class="brand-copy">
+        <strong>SavIA-Lab</strong>
+        <span>INFRASTRUCTURE</span>
+      </div>
+
       <div class="side-label">MONITORIZACIÓN</div>
-      <a class="nav-item active" href="#overview"><span class="nav-icon">▦</span> Resumen</a>
-      <a class="nav-item" href="#resources"><span class="nav-icon">⌁</span> Recursos</a>
-      <a class="nav-item" href="#network"><span class="nav-icon">⇄</span> Tráfico de red</a>
+
+      <a class="nav-item active" href="#overview">
+        <span class="nav-icon">▦</span>
+        Resumen
+      </a>
+
+      <a class="nav-item" href="#resources">
+        <span class="nav-icon">⌁</span>
+        Recursos
+      </a>
+
+      <a class="nav-item" href="#network">
+        <span class="nav-icon">⇄</span>
+        Tráfico de red
+      </a>
+
       <div class="sidebar-bottom">
         <span class="status-dot"></span>
-        <div><strong>Modo de demostración</strong><small>Datos CSV estáticos</small></div>
+
+        <div>
+          <strong>Modo de demostración</strong>
+          <small>Datos CSV estáticos</small>
+        </div>
       </div>
+
     </aside>
 
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+    ====================================================== -->
+
     <main class="main-content" id="overview">
+
+      <!-- Encabezado -->
+
       <header class="topbar">
+
         <div>
           <p class="eyebrow">SAVIA-LAB / INFRAESTRUCTURA</p>
+
           <h1>Panel de telemetría</h1>
-          <p class="subtitle">Vista general del estado y comportamiento de las estaciones de trabajo.</p>
+
+          <p class="subtitle">
+            Vista general del estado y comportamiento de las estaciones de trabajo.
+          </p>
         </div>
+
         <div class="header-actions">
-          <span class="demo-badge"><span></span> DEMO</span>
-          <button id="refresh-button" class="refresh-button" type="button" title="Volver a cargar el CSV">↻ <span>Actualizar</span></button>
+
+          <span class="demo-badge">
+            <span></span>
+            DEMO
+          </span>
+
+          <button
+            id="refresh-button"
+            class="refresh-button"
+            type="button"
+            title="Volver a cargar los archivos CSV"
+          >
+            ↻ <span>Actualizar</span>
+          </button>
+
         </div>
+
       </header>
 
+
+      <!-- Información de estaciones -->
+
       <section class="toolbar">
+
         <div class="machine-info">
+
           <div class="machine-icon">⌘</div>
-          <div><strong id="hostname">Cargando equipo…</strong><small id="device-id">Identificador: —</small></div>
+
+          <div>
+            <strong id="hostname">Cargando estaciones…</strong>
+            <small id="device-id">Identificador: —</small>
+          </div>
+
         </div>
-        <div class="meta-pills"><span>Agente <b id="agent-version">—</b></span><span>Último registro <b id="last-seen">—</b></span></div>
+
+        <div class="meta-pills">
+
+          <span>
+            Agente
+            <b id="agent-version">—</b>
+          </span>
+
+          <span>
+            Último registro
+            <b id="last-seen">—</b>
+          </span>
+
+        </div>
+
       </section>
 
-      <div id="error-box" class="error-box" hidden></div>
 
-      <section class="kpi-grid" aria-label="Indicadores principales">
-        <article class="kpi-card"><div class="kpi-heading"><span>CPU</span><span class="kpi-symbol">⌁</span></div><div class="kpi-value" id="kpi-cpu">—<small>%</small></div><div class="kpi-foot">Última medición registrada</div><div class="mini-track"><span id="bar-cpu"></span></div></article>
-        <article class="kpi-card"><div class="kpi-heading"><span>Memoria RAM</span><span class="kpi-symbol">▤</span></div><div class="kpi-value" id="kpi-ram">—<small>%</small></div><div class="kpi-foot" id="ram-detail">Uso de memoria</div><div class="mini-track"><span id="bar-ram"></span></div></article>
-        <article class="kpi-card"><div class="kpi-heading"><span>Almacenamiento</span><span class="kpi-symbol">▣</span></div><div class="kpi-value" id="kpi-storage">—<small>%</small></div><div class="kpi-foot">Ocupación reportada</div><div class="mini-track"><span id="bar-storage"></span></div></article>
-        <article class="kpi-card"><div class="kpi-heading"><span>GPU</span><span class="kpi-symbol">▦</span></div><div class="kpi-value" id="kpi-gpu">—<small>%</small></div><div class="kpi-foot" id="gpu-detail">Uso de procesador gráfico</div><div class="mini-track"><span id="bar-gpu"></span></div></article>
+      <!-- Mensajes de error -->
+
+      <div
+        id="error-box"
+        class="error-box"
+        role="alert"
+        hidden
+      ></div>
+
+
+      <!-- ===================================================
+           INDICADORES PRINCIPALES
+      ==================================================== -->
+
+      <section
+        class="kpi-grid"
+        aria-label="Indicadores principales"
+      >
+
+        <article class="kpi-card">
+
+          <div class="kpi-heading">
+            <span>CPU</span>
+            <span class="kpi-symbol">⌁</span>
+          </div>
+
+          <div class="kpi-value" id="kpi-cpu">
+            —<small>%</small>
+          </div>
+
+          <div class="kpi-foot">
+            Última medición registrada
+          </div>
+
+          <div class="mini-track">
+            <span id="bar-cpu"></span>
+          </div>
+
+        </article>
+
+
+        <article class="kpi-card">
+
+          <div class="kpi-heading">
+            <span>Memoria RAM</span>
+            <span class="kpi-symbol">▤</span>
+          </div>
+
+          <div class="kpi-value" id="kpi-ram">
+            —<small>%</small>
+          </div>
+
+          <div class="kpi-foot" id="ram-detail">
+            Uso de memoria
+          </div>
+
+          <div class="mini-track">
+            <span id="bar-ram"></span>
+          </div>
+
+        </article>
+
+
+        <article class="kpi-card">
+
+          <div class="kpi-heading">
+            <span>Almacenamiento</span>
+            <span class="kpi-symbol">▣</span>
+          </div>
+
+          <div class="kpi-value" id="kpi-storage">
+            —<small>%</small>
+          </div>
+
+          <div class="kpi-foot">
+            Ocupación reportada
+          </div>
+
+          <div class="mini-track">
+            <span id="bar-storage"></span>
+          </div>
+
+        </article>
+
+
+        <article class="kpi-card">
+
+          <div class="kpi-heading">
+            <span>GPU</span>
+            <span class="kpi-symbol">▦</span>
+          </div>
+
+          <div class="kpi-value" id="kpi-gpu">
+            —<small>%</small>
+          </div>
+
+          <div class="kpi-foot" id="gpu-detail">
+            Uso de procesador gráfico
+          </div>
+
+          <div class="mini-track">
+            <span id="bar-gpu"></span>
+          </div>
+
+        </article>
+
       </section>
+
+
+      <!-- ===================================================
+           RENDIMIENTO
+      ==================================================== -->
 
       <section class="section-heading" id="resources">
-        <div><p class="eyebrow">RENDIMIENTO</p><h2>Uso de recursos</h2></div>
-        <label class="range-control">Ventana temporal
-          <select id="range-select" aria-label="Ventana temporal">
+
+        <div>
+          <p class="eyebrow">RENDIMIENTO</p>
+          <h2>Uso de recursos</h2>
+        </div>
+
+        <label class="range-control">
+          Ventana temporal
+
+          <select
+            id="range-select"
+            aria-label="Ventana temporal"
+          >
             <option value="all">Todo el historial</option>
             <option value="24">Últimas 24 horas</option>
             <option value="72">Últimas 72 horas</option>
             <option value="168">Últimos 7 días</option>
           </select>
+
         </label>
+
       </section>
+
+
+      <!-- Gráficas de recursos -->
 
       <section class="chart-grid">
+
         <article class="panel chart-panel">
-          <div class="panel-title"><div><h3>CPU</h3><p>Porcentaje de utilización a lo largo del tiempo</p></div><span class="legend-dot cpu-dot"></span></div>
-          <div class="chart-wrap"><canvas id="cpu-chart" aria-label="Uso de CPU a lo largo del tiempo"></canvas></div>
+
+          <div class="panel-title">
+            <div>
+              <h3>CPU</h3>
+              <p>Porcentaje de utilización a lo largo del tiempo</p>
+            </div>
+
+            <span class="legend-dot cpu-dot"></span>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas
+              id="cpu-chart"
+              aria-label="Uso de CPU a lo largo del tiempo"
+            ></canvas>
+          </div>
+
         </article>
+
+
         <article class="panel chart-panel">
-          <div class="panel-title"><div><h3>Memoria RAM</h3><p>Porcentaje de memoria utilizada</p></div><span class="legend-dot ram-dot"></span></div>
-          <div class="chart-wrap"><canvas id="ram-chart" aria-label="Uso de RAM a lo largo del tiempo"></canvas></div>
+
+          <div class="panel-title">
+            <div>
+              <h3>Memoria RAM</h3>
+              <p>Porcentaje de memoria utilizada</p>
+            </div>
+
+            <span class="legend-dot ram-dot"></span>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas
+              id="ram-chart"
+              aria-label="Uso de RAM a lo largo del tiempo"
+            ></canvas>
+          </div>
+
         </article>
+
+
         <article class="panel chart-panel">
-          <div class="panel-title"><div><h3>GPU</h3><p>Porcentaje de utilización del procesador gráfico</p></div><span class="legend-dot gpu-dot"></span></div>
-          <div class="chart-wrap"><canvas id="gpu-chart" aria-label="Uso de GPU a lo largo del tiempo"></canvas></div>
+
+          <div class="panel-title">
+            <div>
+              <h3>GPU</h3>
+              <p>Porcentaje de utilización del procesador gráfico</p>
+            </div>
+
+            <span class="legend-dot gpu-dot"></span>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas
+              id="gpu-chart"
+              aria-label="Uso de GPU a lo largo del tiempo"
+            ></canvas>
+          </div>
+
         </article>
+
+
         <article class="panel chart-panel">
-          <div class="panel-title"><div><h3>Memoria de GPU</h3><p>Memoria gráfica utilizada (GB)</p></div><span class="legend-dot vram-dot"></span></div>
-          <div class="chart-wrap"><canvas id="vram-chart" aria-label="Memoria de GPU utilizada"></canvas></div>
+
+          <div class="panel-title">
+            <div>
+              <h3>Memoria de GPU</h3>
+              <p>Memoria gráfica utilizada (GB)</p>
+            </div>
+
+            <span class="legend-dot vram-dot"></span>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas
+              id="vram-chart"
+              aria-label="Memoria de GPU utilizada"
+            ></canvas>
+          </div>
+
         </article>
+
       </section>
+
+
+      <!-- ===================================================
+           CONECTIVIDAD Y TRÁFICO DE RED
+      ==================================================== -->
 
       <section class="section-heading" id="network">
-        <div><p class="eyebrow">CONECTIVIDAD</p><h2>Tráfico de red</h2></div>
-        <span class="section-note">Valores del agente · bytes reportados por registro</span>
-      </section>
-      <section class="panel network-panel">
-        <div class="network-summary">
-          <div><span class="summary-label">Bytes recibidos · último registro</span><strong id="bytes-in">—</strong></div>
-          <div><span class="summary-label">Bytes enviados · último registro</span><strong id="bytes-out">—</strong></div>
-          <div><span class="summary-label">Errores de red · último registro</span><strong id="network-errors">—</strong></div>
+
+        <div>
+          <p class="eyebrow">CONECTIVIDAD</p>
+          <h2>Tráfico de red</h2>
         </div>
-        <div class="chart-wrap network-chart"><canvas id="network-chart" aria-label="Bytes recibidos y enviados por registro"></canvas></div>
-        <p class="chart-caption">Esta gráfica representa los valores registrados por el agente, no una tasa en bytes por segundo. La interpretación como contador acumulado debe confirmarse con el script recolector.</p>
+
+        <span class="section-note">
+          Valores del agente · bytes reportados por registro
+        </span>
+
       </section>
 
-      <section class="bottom-grid">
-        <article class="panel status-panel">
-          <div class="panel-title"><div><h3>Estado de los registros</h3><p>Distribución de estados en el CSV</p></div></div>
-          <div class="status-stats"><div><span class="status-dot"></span><div><strong id="online-count">—</strong><small>Registros online</small></div></div><div><span class="status-dot offline"></span><div><strong id="offline-count">—</strong><small>Registros offline</small></div></div></div>
-        </article>
-        <article class="panel status-panel">
-          <div class="panel-title"><div><h3>Resumen del conjunto de datos</h3><p>Contexto de la telemetría disponible</p></div></div>
-          <div class="dataset-stats"><div><span>Registros cargados</span><strong id="record-count">—</strong></div><div><span>Inicio del historial</span><strong id="first-seen">—</strong></div><div><span>Fuente</span><strong>telemetry.csv</strong></div></div>
-        </article>
+
+      <section class="panel network-panel">
+
+        <div class="network-summary">
+
+          <div>
+            <span class="summary-label">
+              Bytes recibidos · último registro
+            </span>
+
+            <strong id="bytes-in">—</strong>
+          </div>
+
+          <div>
+            <span class="summary-label">
+              Bytes enviados · último registro
+            </span>
+
+            <strong id="bytes-out">—</strong>
+          </div>
+
+          <div>
+            <span class="summary-label">
+              Errores de red · último registro
+            </span>
+
+            <strong id="network-errors">—</strong>
+          </div>
+
+        </div>
+
+        <div class="chart-wrap network-chart">
+
+          <canvas
+            id="network-chart"
+            aria-label="Bytes recibidos y enviados por registro"
+          ></canvas>
+
+        </div>
+
+        <p class="chart-caption">
+          Esta gráfica representa los valores registrados por el agente,
+          no una tasa en bytes por segundo. La interpretación como contador
+          acumulado debe confirmarse con el script recolector.
+        </p>
+
       </section>
-      <footer><span>Savia Traffic · Prototipo de visualización</span><span>Datos de muestra · No es monitorización en tiempo real</span></footer>
+
+
+      <!-- ===================================================
+           ESTADO Y RESUMEN DEL CONJUNTO DE DATOS
+      ==================================================== -->
+
+      <section class="bottom-grid">
+
+        <article class="panel status-panel">
+
+          <div class="panel-title">
+            <div>
+              <h3>Estado de las estaciones</h3>
+              <p>Estado según el último registro disponible por estación</p>
+            </div>
+          </div>
+
+          <div class="status-stats">
+
+            <div>
+              <span class="status-dot"></span>
+
+              <div>
+                <strong id="online-count">—</strong>
+                <small>Estaciones online</small>
+              </div>
+            </div>
+
+            <div>
+              <span class="status-dot offline"></span>
+
+              <div>
+                <strong id="offline-count">—</strong>
+                <small>Estaciones offline</small>
+              </div>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <article class="panel status-panel">
+
+          <div class="panel-title">
+            <div>
+              <h3>Resumen del conjunto de datos</h3>
+              <p>Contexto de la telemetría disponible</p>
+            </div>
+          </div>
+
+          <div class="dataset-stats">
+
+            <div>
+              <span>Registros cargados</span>
+              <strong id="record-count">—</strong>
+            </div>
+
+            <div>
+              <span>Inicio del historial</span>
+              <strong id="first-seen">—</strong>
+            </div>
+
+            <div>
+              <span>Fuentes CSV</span>
+              <strong id="data-sources">—</strong>
+            </div>
+
+          </div>
+
+        </article>
+
+      </section>
+
+
+      <!-- Pie de página -->
+
+      <footer>
+        <span>Savia Traffic · Prototipo de visualización</span>
+        <span>Datos de muestra · No es monitorización en tiempo real</span>
+      </footer>
+
     </main>
+
   </div>
 </body>
 </html>
