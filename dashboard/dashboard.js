@@ -5,10 +5,6 @@ let charts = {};
 let selectedStation = "all";
 let loading = false;
 
-// ============================================================
-// CONFIGURACIÓN
-// ============================================================
-
 const DATA_PATH = "./data/";
 const MANIFEST_PATH = `${DATA_PATH}manifest.json`;
 
@@ -24,7 +20,7 @@ const COLORS = [
 ];
 
 // ============================================================
-// UTILIDADES
+// FEATURES
 // ============================================================
 
 const number = (value, digits = 1) => {
