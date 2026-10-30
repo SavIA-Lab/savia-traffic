@@ -19,7 +19,16 @@ DATA_DIR="$REPO/dashboard/data"
 CSV_NAME="telemetry_WS-##.csv"
 CSV_FILE="$DATA_DIR/$CSV_NAME"
 
-INTERFACE="eno1"
+INTERFACE="network_interface"   # Cambia esto a la interfaz de red que deseas monitorear (por ejemplo, eth0, wlan0, etc.)
+                                # comando  para listar interfaces: ip link show
+                                # valida la interfaz de red que se encuentre UP y en uso para la conexión a internet
+
+# comprobación de la existencia de la interfaz de red
+if [ ! -d "/sys/class/net/$INTERFACE" ]; then
+    echo "ERROR: La interfaz de red $INTERFACE no existe"
+    exit 1
+fi
+
 BRANCH="main"
 
 mkdir -p "$DATA_DIR"
