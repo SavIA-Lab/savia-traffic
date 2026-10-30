@@ -12,9 +12,11 @@ RETRY_INTERVAL=60
 
 AGENT_VERSION="0.2.0"
 
-REPO="$HOME/savia-traffic"
+# cambiar la ruta del repositorio según la ubicación en tu sistema
+REPO="/home/usuario/repositorio/savia-traffic"
 DATA_DIR="$REPO/dashboard/data"
-CSV_NAME="telemetry_WS1.csv"
+#cambiar el nombre del archivo CSV según la estación de trabajo (Ejemplo: telemetry_WS1.csv, telemetry_WS2.csv, etc.)
+CSV_NAME="telemetry_WS-##.csv"
 CSV_FILE="$DATA_DIR/$CSV_NAME"
 
 INTERFACE="eno1"
@@ -154,7 +156,8 @@ sync_to_github() {
 
     if ! git diff --cached --quiet; then
 
-        if ! git commit -m "data: workstation1 telemetry $SYNC_TIMESTAMP"; then
+        WORKSTATION_ID="${CSV_NAME%.csv}"
+        if ! git commit -m "data: workstation${WORKSTATION_ID: -2} telemetry $SYNC_TIMESTAMP"; then
 
             echo "ERROR: No se pudo crear el commit."
             return 1

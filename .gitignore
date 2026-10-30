@@ -1,0 +1,97 @@
+# =========================================================
+# SAVIA-TRAFFIC
+# Git ignore configuration
+# =========================================================
+
+
+# ---------------------------------------------------------
+# AGENTES PERSONALIZADOS POR ESTACIÓN
+# ---------------------------------------------------------
+
+# Mantener collector_agent_base.sh versionado.
+# Ignorar las copias modificadas localmente por cada estación.
+
+agents/collector_agent_WS-*.sh
+
+
+# ---------------------------------------------------------
+# ARCHIVOS TEMPORALES Y DE SISTEMA
+# ---------------------------------------------------------
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+
+# ---------------------------------------------------------
+# EDITORES Y ENTORNOS DE DESARROLLO
+# ---------------------------------------------------------
+
+# Visual Studio Code: configuraciones locales
+.vscode/*
+!.vscode/extensions.json
+
+# Archivos temporales de editores
+*.swp
+*.swo
+*.bak
+*.tmp
+
+
+# ---------------------------------------------------------
+# LOGS
+# ---------------------------------------------------------
+
+*.log
+logs/
+
+
+# ---------------------------------------------------------
+# PYTHON (si se incorporan herramientas auxiliares)
+# ---------------------------------------------------------
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+
+# ---------------------------------------------------------
+# VARIABLES DE ENTORNO Y CREDENCIALES
+# ---------------------------------------------------------
+
+.env
+.env.*
+!.env.example
+
+# Claves privadas
+*.pem
+*.key
+id_rsa
+id_ed25519
+credentials.json
+
+
+# ---------------------------------------------------------
+# ARCHIVOS DE RESPALDO
+# ---------------------------------------------------------
+
+*.old
+*.orig
+*.backup
+*.save
