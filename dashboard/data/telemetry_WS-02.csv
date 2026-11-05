@@ -4908,3 +4908,4 @@ timestamp,device_id,hostname,cpu_usage_percent,ram_usage_percent,ram_used_gb,sto
 2026-11-05T14:47:30Z,administrador,workstation2,0.3,5.0,3.08,83,0,1.08,19807,27164,122,220,0,0,online,824,0.2.0
 2026-11-05T14:50:46Z,administrador,workstation2,1.6,5.4,3.29,83,4,1.07,20147,36324,124,244,0,0,online,1021,0.2.0
 2026-11-05T14:54:03Z,administrador,workstation2,0.3,5.4,3.31,83,0,1.09,20147,99013,124,427,0,0,online,1217,0.2.0
+2026-11-05T14:57:19Z,administrador,workstation2,1.7,5.4,3.31,83,6,1.09,20147,108282,124,457,0,0,online,1414,0.2.0
