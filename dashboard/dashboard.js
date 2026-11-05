@@ -5,6 +5,9 @@ let charts = {};
 let selectedStation = "all";
 let loading = false;
 
+// Zona horaria de visualización del dashboard. Los CSV siguen almacenando UTC.
+const TIME_ZONE = "America/Bogota";
+
 const DATA_PATH = "./data/";
 const MANIFEST_PATH = `${DATA_PATH}manifest.json`;
 
@@ -80,12 +83,12 @@ const dateLabel = (value, withDate = false) => {
           month: "short",
           hour: "2-digit",
           minute: "2-digit",
-          timeZone: "UTC"
+          timeZone: TIME_ZONE
         }
       : {
           hour: "2-digit",
           minute: "2-digit",
-          timeZone: "UTC"
+          timeZone: TIME_ZONE
         }
   ).format(d);
 };
@@ -518,6 +521,12 @@ function makeStationChart(id, rows, key, options = {}) {
         x: {
           type: "time",
 
+          adapters: {
+            date: {
+              zone: TIME_ZONE
+            }
+          },
+
           time: {
             tooltipFormat: "dd/MM/yyyy HH:mm"
           },
@@ -574,7 +583,7 @@ function renderStationInfo(last) {
 
   setText(
     "last-seen",
-    dateLabel(last.timestamp, true) + " UTC"
+    dateLabel(last.timestamp, true)
   );
 
   setText("kpi-cpu", number(last.cpu_usage_percent));
@@ -651,7 +660,7 @@ function renderAllStationsInfo() {
 
   setText(
     "last-seen",
-    dateLabel(latestDate, true) + " UTC"
+    dateLabel(latestDate, true)
   );
 
   const fields = [
@@ -736,7 +745,7 @@ function renderStatusCounts() {
 
   setText(
     "first-seen",
-    dateLabel(first.timestamp, true) + " UTC"
+    dateLabel(first.timestamp, true)
   );
 }
 
