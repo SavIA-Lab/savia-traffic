@@ -1,3 +1,14 @@
 timestamp,station_user,hostname,cpu_usage_percent,ram_usage_percent,ram_used_gb,storage_usage_percent,gpu_usage_percent,gpu_memory_used_gb,bytes_received,bytes_sent,packets_received,packets_sent,errors_received,errors_sent,state,uptime_seconds,agent_version
 2026-11-03T16:06:26Z,administrador,fedora,3.6,19.9,12.41,97,0,0.01,1069978453,83119438,868195,511281,0,0,online,3134,0.2.0
 2026-11-03T16:07:27Z,administrador,fedora,1.1,19.8,12.36,97,0,0.01,1070288887,83490716,868923,511943,0,0,online,3195,0.2.0
+2026-11-06T15:39:07Z,amin1,amin1-System-Product-Name,0.2,8.1,4.97,3,0,0.01,1051714281,27853322,705854,368840,0,0,online,58130,0.2.0
+2026-11-06T15:40:09Z,amin1,amin1-System-Product-Name,1.8,6.8,4.19,3,0,0.01,1058909080,28529310,711780,372440,0,0,online,58191,0.2.0
+2026-11-06T15:41:10Z,amin1,amin1-System-Product-Name,1.5,6.9,4.24,3,0,0.01,1058912821,28543589,711817,372480,0,0,online,58253,0.2.0
+2026-11-06T15:42:11Z,amin1,amin1-System-Product-Name,1.5,6.7,4.12,3,0,0.01,1058913381,28544261,711824,372489,0,0,online,58314,0.2.0
+2026-11-06T15:43:12Z,amin1,amin1-System-Product-Name,2.1,6.6,4.04,3,0,0.01,1058914397,28545716,711840,372510,0,0,online,58375,0.2.0
+2026-11-06T15:44:14Z,amin1,amin1-System-Product-Name,1.5,7.1,4.33,3,0,0.01,1074379511,29387275,723959,379165,0,0,online,58436,0.2.0
+2026-11-06T15:45:15Z,amin1,amin1-System-Product-Name,2.5,8.0,4.88,3,0,0.01,1089806193,31285554,736831,387264,0,0,online,58497,0.2.0
+2026-11-06T15:46:16Z,amin1,amin1-System-Product-Name,2.5,8.2,5.01,3,0,0.01,1101269953,31800675,746171,392214,0,0,online,58559,0.2.0
+2026-11-06T15:47:17Z,amin1,amin1-System-Product-Name,2.2,8.0,4.92,3,0,0.01,1101771688,31901943,746706,392587,0,0,online,58620,0.2.0
+2026-11-06T15:48:18Z,amin1,amin1-System-Product-Name,1.6,8.0,4.90,3,0,0.01,1101785384,31913565,746753,392630,0,0,online,58681,0.2.0
+2026-11-06T15:49:20Z,amin1,amin1-System-Product-Name,1.7,8.0,4.88,3,0,0.01,1101792787,31923292,746792,392673,0,0,online,58742,0.2.0
