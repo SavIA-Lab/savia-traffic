@@ -6568,3 +6568,13 @@ timestamp,device_id,hostname,cpu_usage_percent,ram_usage_percent,ram_used_gb,sto
 2026-11-10T11:35:06Z,gdm-greeter,workstation2,0.0,3.4,2.10,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,71539,0.2.0
 2026-11-10T11:36:07Z,gdm-greeter,workstation2,0.0,3.4,2.09,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,71600,0.2.0
 2026-11-10T11:37:08Z,gdm-greeter,workstation2,0.0,3.4,2.08,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,71662,0.2.0
+2026-11-10T11:38:13Z,gdm-greeter,workstation2,0.0,3.4,2.08,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,71727,0.2.0
+2026-11-10T11:39:14Z,gdm-greeter,workstation2,0.1,3.4,2.07,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,71788,0.2.0
+2026-11-10T11:40:15Z,gdm-greeter,workstation2,0.1,3.4,2.06,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,71849,0.2.0
+2026-11-10T11:41:17Z,gdm-greeter,workstation2,0.1,3.4,2.06,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,71910,0.2.0
+2026-11-10T11:42:18Z,gdm-greeter,workstation2,0.0,3.4,2.06,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,71971,0.2.0
+2026-11-10T11:43:19Z,gdm-greeter,workstation2,0.0,3.4,2.06,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,72033,0.2.0
+2026-11-10T11:44:20Z,gdm-greeter,workstation2,0.1,3.4,2.06,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,72094,0.2.0
+2026-11-10T11:45:22Z,gdm-greeter,workstation2,0.0,3.4,2.06,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,72155,0.2.0
+2026-11-10T11:46:23Z,gdm-greeter,workstation2,0.0,3.4,2.06,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,72216,0.2.0
+2026-11-10T11:47:24Z,gdm-greeter,workstation2,0.0,3.4,2.06,83,Failed to initialize NVML: Driver/library version mismatch,,25640,4341,162,51,0,0,online,72278,0.2.0
