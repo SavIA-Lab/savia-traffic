@@ -13981,3 +13981,4 @@ timestamp,device_id,hostname,cpu_usage_percent,ram_usage_percent,ram_used_gb,sto
 2026-11-17T04:38:22Z,administrador,workstation2,1.6,8.2,5.05,85,0,0.40,103871,118737,508,368,0,0,online,395995,0.2.0
 2026-11-17T04:39:23Z,administrador,workstation2,0.1,8.3,5.09,85,0,0.40,103871,118737,508,368,0,0,online,396056,0.2.0
 2026-11-17T04:40:25Z,administrador,workstation2,0.3,8.2,5.03,85,0,0.40,103871,122113,508,372,0,0,online,396117,0.2.0
+2026-11-17T04:41:26Z,administrador,workstation2,0.2,8.3,5.08,85,0,0.40,103871,125489,508,376,0,0,online,396179,0.2.0
