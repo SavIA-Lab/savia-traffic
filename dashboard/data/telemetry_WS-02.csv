@@ -16561,3 +16561,13 @@ timestamp,device_id,hostname,cpu_usage_percent,ram_usage_percent,ram_used_gb,sto
 2026-11-19T16:57:02Z,administrador,workstation2,1.9,9.9,6.05,84,43,0.72,7658,8121,52,50,0,0,online,4834,0.2.0
 2026-11-19T16:58:03Z,administrador,workstation2,1.2,9.9,6.05,84,0,0.72,7658,8121,52,50,0,0,online,4895,0.2.0
 2026-11-19T16:59:04Z,administrador,workstation2,2.4,9.9,6.08,84,0,0.72,7658,8121,52,50,0,0,online,4957,0.2.0
+2026-11-19T17:00:11Z,administrador,workstation2,2.9,10.3,6.31,84,16,0.73,8954,8121,59,50,0,0,online,5023,0.2.0
+2026-11-19T17:01:12Z,administrador,workstation2,2.7,10.1,6.17,84,0,0.81,8954,8121,59,50,0,0,online,5084,0.2.0
+2026-11-19T17:02:13Z,administrador,workstation2,3.2,9.8,5.99,84,5,0.75,8954,8281,59,51,0,0,online,5145,0.2.0
+2026-11-19T17:03:14Z,administrador,workstation2,1.4,9.8,6.00,84,6,0.82,8954,8281,59,51,0,0,online,5206,0.2.0
+2026-11-19T17:04:16Z,administrador,workstation2,6.0,9.8,6.04,84,6,0.77,8954,8281,59,51,0,0,online,5268,0.2.0
+2026-11-19T17:05:17Z,administrador,workstation2,4.1,9.9,6.05,84,0,0.74,10250,8281,66,51,0,0,online,5329,0.2.0
+2026-11-19T17:06:18Z,administrador,workstation2,2.9,9.9,6.10,84,0,0.75,10250,8281,66,51,0,0,online,5390,0.2.0
+2026-11-19T17:07:19Z,administrador,workstation2,5.3,10.6,6.47,84,9,0.76,10250,8281,66,51,0,0,online,5451,0.2.0
+2026-11-19T17:08:21Z,administrador,workstation2,6.0,10.1,6.21,84,0,0.76,10250,8281,66,51,0,0,online,5513,0.2.0
+2026-11-19T17:09:22Z,administrador,workstation2,0.7,10.1,6.18,84,0,0.71,12734,8281,84,51,0,0,online,5574,0.2.0
