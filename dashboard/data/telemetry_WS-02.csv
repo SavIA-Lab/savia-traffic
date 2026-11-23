@@ -17303,3 +17303,4 @@ timestamp,device_id,hostname,cpu_usage_percent,ram_usage_percent,ram_used_gb,sto
 2026-11-23T20:21:48Z,administrador,workstation2,0.6,9.2,5.65,84,0,0.88,29851,12072,107,56,0,0,online,18405,0.2.0
 2026-11-23T20:22:49Z,administrador,workstation2,3.9,8.4,5.17,84,7,0.88,29851,12072,107,56,0,0,online,18466,0.2.0
 2026-11-23T20:23:51Z,administrador,workstation2,2.2,8.3,5.11,84,30,0.92,29851,12159,107,57,0,0,online,18527,0.2.0
+2026-11-23T20:24:55Z,administrador,workstation2,5.5,8.4,5.15,84,19,0.88,29851,12159,107,57,0,0,online,18592,0.2.0
